@@ -1,44 +1,92 @@
-# Python
+# ----- Python -----
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual environment
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# ----- Virtual environments -----
 chatbotenv/
 env/
 venv/
 ENV/
+.venv/
 
+# Pyenv
+.python-version
+
+# ----- Sessions / repo-specific -----
 # session files
 *.session*
 
-# Installer logs
+# Local session directory used by this repo
+.sessions/
+
+# Project-specific metadata
+.qodo/
+
+# ----- Installer / packaging -----
 pip-log.txt
 pip-delete-this-directory.txt
+build/
+dist/
+*.egg-info/
 
-# Pytest
+# ----- Test / cache -----
 .cache/
 .pytest_cache/
+htmlcov/
+.tox/
 
-
-# VS Code
+# ----- Editors / IDEs -----
 .vscode/
 .history/
+*.sublime-workspace
+*.sublime-project
 
-# Logs
+# ----- Logs -----
 logs/
 *.log
 
-# dotenv
+# Uvicorn / gunicorn / pid files
+*.pid
+gunicorn.*.log
+
+# ----- Environment files / secrets -----
 .env
 .env.*
+secrets.json
+config.local.yaml
 
-
-
-cache/
-
-# HuggingFace / transformers cache
+# ----- Caches (HuggingFace / Transformers / Datasets) -----
 ~/.cache/huggingface
+.cache/huggingface/
+.cache/huggingface_transformers/
+.cache/huggingface_datasets/
+.cache/torch/
 
+# ----- Vectorstores / FAISS -----
+*.faiss
+*.index
+vectorstore/
+
+# ----- Notebooks -----
+.ipynb_checkpoints/
+
+# ----- OS files -----
+.DS_Store
+Thumbs.db
+
+# ----- Misc editor temp files -----
+*~
+.*.sw?
+.project
+.classpath
+.settings/
+
+# ----- Other -----
+cache/
 
 # End of file
