@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 
 #Define Product Model
@@ -25,3 +25,29 @@ class Product(BaseModel):
     returnPolicy: Optional[str] = None
     minimumOrderQuantity: Optional[int] = None
     meta: Optional[Dict[str, Any]] = None
+
+
+
+class ChatRequest(BaseModel):
+    query: str = Field(..., description="User's question or message")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "query": "Tell me more about Kiwi"
+            }
+        }
+
+
+class ChatResponse(BaseModel):
+    chat_history: List[Dict[str, str]] = Field(..., description="Serialized chat history (role/content pairs)")
+    response: str = Field(..., description="Model answer to the user's query")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "chat_history": [{"role": "user", "content": "Tell me about Kiwi"}],
+                "response": "Kiwi is..."
+            }
+        }
+    

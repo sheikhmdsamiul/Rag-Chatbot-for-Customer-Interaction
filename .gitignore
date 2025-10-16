@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+chatbotenv/
+env/
+venv/
+ENV/
+
+# session files
+*.session*
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pytest
+.cache/
+.pytest_cache/
+
+
+# VS Code
+.vscode/
+.history/
+
+# Logs
+logs/
+*.log
+
+# dotenv
+.env
+.env.*
+
+
+
+cache/
+
+# HuggingFace / transformers cache
+~/.cache/huggingface
+
+
+# End of file
