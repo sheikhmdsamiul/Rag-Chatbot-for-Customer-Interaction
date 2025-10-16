@@ -8,19 +8,18 @@ from langchain.chains import create_retrieval_chain
 from langchain.chains import create_history_aware_retriever
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
-# Load environment variables
-load_dotenv()
+from ..utils.groq_client import get_groq_client
+from ..core.config import settings
+
+logging.basicConfig(level=settings.LOG_LEVEL)
+logger = logging.getLogger(__name__)
 
 #Configuration 
-MODEL = os.environ.get("RAG_MODEL", "llama-3.3-70b-versatile")
-RE_RANKING_MODEL = os.environ.get("RE_RANKING_MODEL", "BAAI/bge-reranker-base")
-EMBEDDING_MODEL = os.environ.get("EMBEDDING_MODEL", "intfloat/multilingual-e5-base")
+EMBEDDING_MODEL = settings.EMBEDDING_MODEL
 
 #Module-level placeholders for lazy initialization
 llm = None
 embeddings = None
-
-logger = logging.getLogger(__name__)
 
 
 def init_models():
@@ -38,15 +37,10 @@ def init_models():
     # Initialize LLM only if GROQ_API_KEY is available (LLM is optional at import-time)
     if llm is None:
         try:
-            from langchain_groq import ChatGroq
-            groq_api_key = os.environ.get("GROQ_API_KEY")
-            if groq_api_key:
-                llm = ChatGroq(groq_api_key=groq_api_key, model=MODEL, temperature=0.1)
-            else:
-                logger.warning("GROQ_API_KEY not set; LLM will remain uninitialized until a key is provided.")
+            llm = get_groq_client()
         except Exception as e:
-            # LLM is optional for initializing embeddings; log and continue
-            logger.warning("Optional LLM library not available or failed to initialize: %s", e)
+            logger.error(f"Failed to initialize LLM: {e}")
+            raise RuntimeError("Groq LLM initialization failed.")
 
 def get_vector_store(documents):
     """ Create and return a vector store for the documents

@@ -4,6 +4,7 @@ import httpx
 from .services.product_service import products_to_documents
 from .services.chatbot_service import rag_chat
 from .core.chat_state import chat_state
+from .core.config import settings
 from .models.schemas import Product, ChatRequest, ChatResponse
 
 from langchain_core.messages import HumanMessage, AIMessage
@@ -16,7 +17,7 @@ app = FastAPI()
 #Fetch data 
 @app.get("/api/products")
 async def fetch_data():
-    url = "https://dummyjson.com/products"
+    url = settings.DUMMYJSON_API_URL
 
     try:
 
